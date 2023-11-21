@@ -1,10 +1,45 @@
 import React, { useState } from "react";
 
 export default function TextForm2(props) {
-    
   const handleUpClick = () => {
     console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
+    setText(newText);
+  };
+
+  const handleLoClick = () => {
+    console.log("Lowercase was clicked!" + text);
+    let newText = text.toLowerCase();
+    setText(newText);
+  };
+
+  const handleStartWithCapital = () => {
+    console.log("StartWithCapital was clicked!" + text);
+  
+    const lines = text.split("\n");
+  
+    let newLines = lines.map((line) => {
+      return line
+        .split(" ")
+        .map((word) => {
+          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(" ");
+    });
+    const newText = newLines.join("\n");
+  
+    setText(newText);
+  };
+
+  const handleCopyText = () => {
+    console.log("Copy text was clicked!" + text);
+    navigator.clipboard.writeText(text);
+  };
+
+  
+  const clearText = () => {
+    console.log("Clear Text was clicked!" + text);
+    let newText = "";
     setText(newText);
   };
 
@@ -16,7 +51,7 @@ export default function TextForm2(props) {
   const [text, setText] = useState("Enter text here2");
   return (
     <>
-      <div>
+      <div className="container">
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
@@ -27,9 +62,37 @@ export default function TextForm2(props) {
             rows="10"
           ></textarea>
         </div>
-        <button className="btn btn-primary" onClick={handleUpClick}>
+        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
           Convert to Uppercase
         </button>
+        <button className="btn btn-primary mx-2" onClick={handleLoClick}>
+          Convert to Lowercase
+        </button>
+        <button
+          className="btn btn-primary mx-2"
+          onClick={handleStartWithCapital}
+        >
+          Start With Capital
+        </button>
+        <button
+          className="btn btn-primary mx-2"
+          onClick={handleCopyText}
+        >
+          Copy Text
+        </button>
+
+        <button className="btn btn-primary mx-2" onClick={clearText}>
+          Clear Text
+        </button>
+      </div>
+      <div className="container my-3">
+        <h1>Total text summery</h1>
+        <p>
+          {text.split(" ").length} words, {text.length} characters
+        </p>
+        <p>{0.008 * text.split(" ").length} Minutes required for reading</p>
+        <h1>Preview</h1>
+        <p>{text}</p>
       </div>
     </>
   );
