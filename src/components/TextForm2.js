@@ -53,6 +53,7 @@ export default function TextForm2(props) {
   };
 
   const [text, setText] = useState("Enter text here2");
+  
   return (
     <>
       <div className="container my-3" style={{
