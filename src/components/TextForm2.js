@@ -55,7 +55,7 @@ export default function TextForm2(props) {
   const [text, setText] = useState("Enter text here2");
   return (
     <>
-      <div className="container" style={{
+      <div className="container my-3" style={{
               color: props.mode === "dark" ? "white" : "#2a3444"
             }}>
         <h1>{props.heading}</h1>
