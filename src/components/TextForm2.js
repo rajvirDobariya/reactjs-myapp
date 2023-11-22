@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 
 export default function TextForm2(props) {
+
   const handleUpClick = () => {
     console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert('Converted to Uppercase!','success');
   };
 
   const handleLoClick = () => {
     console.log("Lowercase was clicked!" + text);
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert('Converted to Lowercase!','success');
   };
 
   const handleStartWithCapital = () => {
@@ -27,19 +30,21 @@ export default function TextForm2(props) {
         .join(" ");
     });
     const newText = newLines.join("\n");
-
     setText(newText);
+    props.showAlert('Converted to StartWithCapital!','success');
   };
 
   const handleCopyText = () => {
     console.log("Copy text was clicked!" + text);
     navigator.clipboard.writeText(text);
+    props.showAlert('Copy text!','success');
   };
 
   const clearText = () => {
     console.log("Clear Text was clicked!" + text);
     let newText = "";
     setText(newText);
+    props.showAlert('Clear text!','success');
   };
 
   const handleOnChange = (event) => {
@@ -51,7 +56,7 @@ export default function TextForm2(props) {
   return (
     <>
       <div className="container" style={{
-              color: props.mode === "dark" ? "white" : "#041734"
+              color: props.mode === "dark" ? "white" : "#2a3444"
             }}>
         <h1>{props.heading}</h1>
         <div className="mb-3">
@@ -62,7 +67,7 @@ export default function TextForm2(props) {
             id="myBox"
             rows="10"
             style={{
-              backgroundColor: props.mode === "dark" ? "#041734" : "white", color:props.mode === "dark" ? "white" : "#041734"
+              backgroundColor: props.mode === "dark" ? "#2a3444" : "white", color:props.mode === "dark" ? "white" : "#2a3444"
             }}
           ></textarea>
         </div>
@@ -87,7 +92,7 @@ export default function TextForm2(props) {
         </button>
       </div>
       <div className="container my-3" style={{
-              color: props.mode === "dark" ? "white" : "#041734"
+              color: props.mode === "dark" ? "white" : "#2a3444"
             }}>
         <h1>Total text summery</h1>
         <p>
