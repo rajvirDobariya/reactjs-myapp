@@ -15,9 +15,9 @@ export default function TextForm2(props) {
 
   const handleStartWithCapital = () => {
     console.log("StartWithCapital was clicked!" + text);
-  
+
     const lines = text.split("\n");
-  
+
     let newLines = lines.map((line) => {
       return line
         .split(" ")
@@ -27,7 +27,7 @@ export default function TextForm2(props) {
         .join(" ");
     });
     const newText = newLines.join("\n");
-  
+
     setText(newText);
   };
 
@@ -36,7 +36,6 @@ export default function TextForm2(props) {
     navigator.clipboard.writeText(text);
   };
 
-  
   const clearText = () => {
     console.log("Clear Text was clicked!" + text);
     let newText = "";
@@ -51,7 +50,9 @@ export default function TextForm2(props) {
   const [text, setText] = useState("Enter text here2");
   return (
     <>
-      <div className="container">
+      <div className="container" style={{
+              color: props.mode === "dark" ? "white" : "#041734"
+            }}>
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
@@ -60,6 +61,9 @@ export default function TextForm2(props) {
             onChange={handleOnChange}
             id="myBox"
             rows="10"
+            style={{
+              backgroundColor: props.mode === "dark" ? "#041734" : "white", color:props.mode === "dark" ? "white" : "#041734"
+            }}
           ></textarea>
         </div>
         <button className="btn btn-primary mx-2" onClick={handleUpClick}>
@@ -74,10 +78,7 @@ export default function TextForm2(props) {
         >
           Start With Capital
         </button>
-        <button
-          className="btn btn-primary mx-2"
-          onClick={handleCopyText}
-        >
+        <button className="btn btn-primary mx-2" onClick={handleCopyText}>
           Copy Text
         </button>
 
@@ -85,14 +86,16 @@ export default function TextForm2(props) {
           Clear Text
         </button>
       </div>
-      <div className="container my-3">
+      <div className="container my-3" style={{
+              color: props.mode === "dark" ? "white" : "#041734"
+            }}>
         <h1>Total text summery</h1>
         <p>
           {text.split(" ").length} words, {text.length} characters
         </p>
         <p>{0.008 * text.split(" ").length} Minutes required for reading</p>
         <h1>Preview</h1>
-        <p>{text}</p>
+        <p>{text.length>0?text:'Enter something for preview above'}</p>
       </div>
     </>
   );
