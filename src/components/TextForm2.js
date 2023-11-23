@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 export default function TextForm2(props) {
 
+  const [text, setText] = useState("Enter text here2");
+  const disable=text.length===0;
+
   const handleUpClick = () => {
     console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
@@ -37,6 +40,7 @@ export default function TextForm2(props) {
   const handleCopyText = () => {
     console.log("Copy text was clicked!" + text);
     navigator.clipboard.writeText(text);
+    document.getSelection().removeAllRanges();
     props.showAlert('Copy text!','success');
   };
 
@@ -51,15 +55,13 @@ export default function TextForm2(props) {
     console.log("HandleOnChange was clicked!");
     setText(event.target.value);
   };
-
-  const [text, setText] = useState("Enter text here2");
   
   return (
     <>
       <div className="container my-3" style={{
               color: props.mode === "dark" ? "white" : "#2a3444"
             }}>
-        <h1>{props.heading}</h1>
+        <h1 className='mb-4'>{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -72,23 +74,23 @@ export default function TextForm2(props) {
             }}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+        <button disabled ={disable} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLoClick}>
+        <button disabled ={disable} className="btn btn-primary mx-2 my-1" onClick={handleLoClick}>
           Convert to Lowercase
         </button>
         <button
-          className="btn btn-primary mx-2"
+          disabled ={disable} className="btn btn-primary mx-2 my-1"
           onClick={handleStartWithCapital}
         >
           Start With Capital
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleCopyText}>
+        <button disabled ={disable} className="btn btn-primary mx-2 my-1" onClick={handleCopyText}>
           Copy Text
         </button>
 
-        <button className="btn btn-primary mx-2" onClick={clearText}>
+        <button disabled ={disable} className="btn btn-primary mx-2 my-1" onClick={clearText}>
           Clear Text
         </button>
       </div>
@@ -97,11 +99,11 @@ export default function TextForm2(props) {
             }}>
         <h1>Total text summery</h1>
         <p>
-          {text.length<1?0: text.split(" ").length} words, {text.length} characters
+          {text.split(" ").filter((element)=>{return element.length!==0}).length} words, {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} Minutes required for reading</p>
+        <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes required for reading</p>
         <h1>Preview</h1>
-        <p>{text.length>0?text:'Enter something for preview above'}</p>
+        <p>{text.length>0?text:'Nothing to preview!'}</p>
       </div>
     </>
   );
