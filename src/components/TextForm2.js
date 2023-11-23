@@ -6,22 +6,18 @@ export default function TextForm2(props) {
   const disable=text.length===0;
 
   const handleUpClick = () => {
-    console.log("Uppercase was clicked!" + text);
     let newText = text.toUpperCase();
     setText(newText);
     props.showAlert('Converted to Uppercase!','success');
   };
 
   const handleLoClick = () => {
-    console.log("Lowercase was clicked!" + text);
     let newText = text.toLowerCase();
     setText(newText);
     props.showAlert('Converted to Lowercase!','success');
   };
 
   const handleStartWithCapital = () => {
-    console.log("StartWithCapital was clicked!" + text);
-
     const lines = text.split("\n");
 
     let newLines = lines.map((line) => {
@@ -38,21 +34,17 @@ export default function TextForm2(props) {
   };
 
   const handleCopyText = () => {
-    console.log("Copy text was clicked!" + text);
     navigator.clipboard.writeText(text);
-    document.getSelection().removeAllRanges();
     props.showAlert('Copy text!','success');
   };
 
   const clearText = () => {
-    console.log("Clear Text was clicked!" + text);
     let newText = "";
     setText(newText);
     props.showAlert('Clear text!','success');
   };
 
   const handleOnChange = (event) => {
-    console.log("HandleOnChange was clicked!");
     setText(event.target.value);
   };
   
@@ -99,9 +91,9 @@ export default function TextForm2(props) {
             }}>
         <h1>Total text summery</h1>
         <p>
-          {text.split(" ").filter((element)=>{return element.length!==0}).length} words, {text.length} characters
+          {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words, {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes required for reading</p>
+        <p>{0.008 * text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Minutes required for reading</p>
         <h1>Preview</h1>
         <p>{text.length>0?text:'Nothing to preview!'}</p>
       </div>
